@@ -1,2 +1,2 @@
 #!/bin/bash
-cat Star*
+telnet towel.blinkenlights.nl
