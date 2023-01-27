@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # This script stops 4-to_infinity_and_beyond process.
- kill `pidof bash ./4-to_infinity_and_beyond`
-# shellcheck disable=SC2009
+pid=$(pgrep -f "4-to_infinity_and_beyond")
+kill "$pid"
