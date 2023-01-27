@@ -3,8 +3,10 @@
 #but for the 9th iteration, 
 #displays Best School and then Hi on a new line.
 x=1
-while [ $x -le 9 ]; do
-echo "Best School"; (( x++ ))
+while [ $x -le 10 ]; do
     if (( x == 9 )); then
 	    echo 'Hi'
-	fi; done
+    else
+    echo "Best School";
+	fi;(( x++ ))
+done
