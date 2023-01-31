@@ -13,7 +13,7 @@ for file in "$@"; do
 	then
 		echo "Adding content to existing $file"
 		echo "#!/usr/bin/env ruby" >> "$file"
-		echo "# This script " >> "$file"
+		echo "puts ARGV[0].scan(/127.0.0.[0-9]/).join" >> "$file"
 	else
 		echo "Creating New Files"
 		touch "$@"
@@ -21,7 +21,7 @@ for file in "$@"; do
 		echo "Files created successfully with mode u+x"
 		echo "Adding content to new '$file'"
 		echo "#!/usr/bin/env ruby" >> "$file"
-		echo "# This script " >> "$file"
+		echo "puts ARGV[0].scan(/127.0.0.[0-9]/).join" >> "$file"
 	fi
 done
 code "$file"
