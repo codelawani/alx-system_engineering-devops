@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#add text to my apache web server
+echo "Hello Holberton" > htdocs/index.html
