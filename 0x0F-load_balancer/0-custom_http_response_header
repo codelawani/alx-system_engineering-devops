@@ -1,8 +1,32 @@
 #!/usr/bin/env bash
 # This script adds an X-Served-By header to the Nginx configuration file
-sudo apt-get update
+sudo apt-get -y update
 sudo apt-get -y install nginx
 sudo chown -R "$USER:$USER" /var/www
+echo 'Hello World!' > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+
+    error_page 404 /404.html;
+
+    location = /404.html {
+        internal;
+    }
+}
+" > /etc/nginx/sites-available/default
+
 sudo chown -R "$USER:$USER" /etc/nginx
 server_name=$(hostname)
 sudo sed -i "/http {/a \        add_header X-Served-By \"$server_name\";" /etc/nginx/nginx.conf
