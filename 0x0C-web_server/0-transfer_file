@@ -3,9 +3,12 @@
 if [ $# -lt 3 ]; then
 echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
 else
-PATH_TO_FILE="$1"
-IP="$2"
-USERNAME="$3"
+FILES="$1"
+read -r IP USERNAME <<< "$2"
+# IP="$2"
+# USERNAME="$3"
 PATH_TO_SSH_KEY="$4"
-scp -o StrictHostKeyChecking=no -i "$PATH_TO_SSH_KEY" "$PATH_TO_FILE" "$USERNAME"@"$IP":~/
+for file in $FILES; do
+	scp -o StrictHostKeyChecking=no -i "$PATH_TO_SSH_KEY" "$file" "$USERNAME"@"$IP":~/
+done
 fi

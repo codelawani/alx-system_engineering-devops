@@ -4,6 +4,7 @@
 sudo apt-get update
 sudo apt-get -y install nginx
 sudo chown -R "$USER:$USER" /var/www
+sudo chown -R "$USER:$USER" /etc/nginx
 echo 'Hello World!' > /var/www/html/index.html
 echo "Ceci n'est pas une page" > /var/www/html/404.html
 printf %s "server {
