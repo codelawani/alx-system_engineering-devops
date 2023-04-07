@@ -7,11 +7,12 @@ printf %s "
 #frontend configuration
 frontend http-in
     bind *:80
+    mode http
     default_backend servers
 # Backend configuration
 backend servers
     balance roundrobin
-    server server1 54.208.84.31
-    server server2 54.172.141.180
+    server server1 54.208.84.31:80 check
+    server server2 54.172.141.180:80 check
 " >> /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
