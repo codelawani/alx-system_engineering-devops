@@ -1,6 +1,9 @@
 # Resources I used
-- [Awk](https://www.google.com/search?q=awk+linux&oq=awk+linux&aqs=chrome..69i57j0i512l9.3315j0j7&sourceid=chrome&ie=UTF-8)
-- [quick-sed-intro](https://angel.hashnode.dev/short-sed-intro)
+- [awk-command-unixlinux-examples](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/)  
+Something useful that was missing in above Article.  
+    - [How to use variables in awk command](https://linuxhint.com/awk_command_variables/)
+  
+- [Quick-sed-intro](https://angel.hashnode.dev/short-sed-intro)
 - [HOW TO SETUP SSL-HTTPS ON HAPROXY LOAD_BALANCER](https://mustaphaaliyugaladima.medium.com/how-to-setup-ssl-https-on-haproxy-load-balancer-a47bee7bc146)
 # Fixing Errors
 - [HAproxy SSL/TLS Warning: Setting tune.ssl.default-dh-param to 1024 by default]([https://](https://www.digitalocean.com/community/tutorials/haproxy-ssl-tls-warning-setting-tune-ssl-default-dh-param-to-1024-by-default))
