@@ -15,4 +15,3 @@ for sb in "${subdomain[@]}"
 done 
 }
 display_domain_info
-
