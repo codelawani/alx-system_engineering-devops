@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script creates a new database and table on the remote server
+# Define the variables
+user="holberton_user"
+host="localhost"
+# passwd="projectcorrection280hbtn"
+db="tyrell_corp"
+table="nexus6"
+# Use the variables in the command
+sudo mysql -e "CREATE DATABASE IF NOT EXISTS $db;"
+sudo mysql -e "CREATE TABLE IF NOT EXISTS $db.$table (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(256));"
+sudo mysql -e "INSERT INTO $db.$table (name) VALUES ('John'), ('shuvi'), ('nico');"
+sudo mysql -e "GRANT SELECT ON $db.$table TO $user@$host;"
+#I know this is insecure. I only did it since its a test environment.
+mysql -uholberton_user -pprojectcorrection280hbtn -e "use tyrell_corp; select * from nexus6"

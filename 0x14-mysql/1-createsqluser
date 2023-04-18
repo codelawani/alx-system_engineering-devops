@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This script creates a new user on the remote server
+user="holberton_user"
+host="localhost"
+passwd="projectcorrection280hbtn"
+sudo mysql -e "CREATE USER IF NOT EXISTS '$user'@'$host' IDENTIFIED BY '$passwd';"
+sudo mysql -e "GRANT REPLICATION CLIENT ON *.* TO '$user'@'$host';"
+sudo mysql -e "FLUSH PRIVILEGES;"

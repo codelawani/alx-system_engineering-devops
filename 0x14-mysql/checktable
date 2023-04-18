@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script checks that the replica setup works
+
+mysql -uholberton_user -pprojectcorrection280hbtn -e "use tyrell_corp; select * from nexus6"

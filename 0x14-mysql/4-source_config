@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# This script configures the replica server on the remote[source] server
+# This script is run on the remote[source] server
+#This script assumes that a replica user has already been created
+replica_server_ip=54.172.141.180
+db="tyrell_corp"
+sudo ufw allow from $replica_server_ip to any port 3306
+sudo sed -i "s/bind-address/# bind-address/g" /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo printf %s "
+server-id         = 1
+log_bin           = /var/log/mysql/mysql-bin.log
+binlog_do_db      = $db
+" | sudo tee -a /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo service mysql restart
+# U need to stay logged into the mysql client while executing cmds below
+# This is because the table will unlock once u logout
+# It ends at the line saying exit
+#Retrieving Binary Log Coordinates from the Source
+sudo mysql -e "FLUSH TABLES WITH READ LOCK;"
+sudo mysql -e "SHOW MASTER STATUS;" | sudo tee output.txt
+scp -i ~/.ssh/school output.txt ubuntu@$replica_server_ip:/tmp/
+sudo mysqldump "$db" | sudo tee "$db.sql"
+# mysql> UNLOCK TABLES;
+# mysql exit
+scp -i ~/.ssh/school "$db".sql ubuntu@$replica_server_ip:/tmp/
+
+scp -i ~/.ssh/school output.txt ubuntu@54.172.141.180:/tmp/
+scp -i ~/.ssh/school tyrell_corp.sql ubuntu@54.172.141.180:/tmp/

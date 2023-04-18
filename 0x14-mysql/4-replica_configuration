@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# replica server setup
+
+source_server_ip=54.208.84.31
+db="tyrell_corp"
+passwd="replica1"
+
+# This assumes that a file containing the file and position
+# was created initially
+if [ -f /tmp/output.txt ]; then
+    read -r file position <<< "$(tail -n +2 /tmp/output.txt | head -n 1 | awk '{print $1, $2}')"
+else
+    exit
+fi
+sudo mysql -e "CREATE DATABASE IF NOT EXISTS $db"
+sudo mysql "$db" < "/tmp/$db.sql"
+sudo printf %s "
+server-id        = 2
+log_bin          = /var/log/mysql/mysql-bin.log
+binlog_do_db     = tyrell_corp
+relay-log        = /var/log/mysql/mysql-relay-bin.log
+" | sudo tee -a /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo service mysql restart
+#works for mysql v8.0
+# sudo mysql -e "CHANGE REPLICATION SOURCE TO
+# SOURCE_HOST='$source_server_ip',
+# SOURCE_USER='replica_user',
+# SOURCE_PASSWORD='$passwd',
+# SOURCE_LOG_FILE='$file',
+# SOURCE_LOG_POS='$position';"
+
+#changing replication source in mysql v5.7
+sudo mysql -e "STOP SLAVE;
+CHANGE MASTER TO MASTER_HOST='$source_server_ip',
+MASTER_USER='replica_user',
+MASTER_PASSWORD='$passwd',
+MASTER_LOG_FILE='$file',
+MASTER_LOG_POS=$position;
+START SLAVE;"
+
+sudo mysql -e "SHOW SLAVE STATUS\G;"
+
