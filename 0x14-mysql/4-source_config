@@ -22,6 +22,12 @@ scp -i ~/.ssh/school output.txt ubuntu@$replica_server_ip:/tmp/
 sudo mysqldump "$db" | sudo tee "$db.sql"
 # mysql> UNLOCK TABLES;
 # mysql exit
+
+#copy your key to the  replica server
+echo ~/.ssh/school | ssh "ubuntu@$replica_server_ip" "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+
+echo "if this fails, u have to go manually add your source server
+public key to ur replica server"
 scp -i ~/.ssh/school "$db".sql ubuntu@$replica_server_ip:/tmp/
 
 scp -i ~/.ssh/school output.txt ubuntu@54.172.141.180:/tmp/

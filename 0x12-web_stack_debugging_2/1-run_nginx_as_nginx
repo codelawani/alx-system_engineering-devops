@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# sudo service nginx stop
+sudo chown nginx /etc/nginx/nginx.conf
+sudo chmod u+rw /etc/nginx/nginx.conf
+sudo -u nginx service nginx restart
