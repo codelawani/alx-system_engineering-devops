@@ -20,4 +20,3 @@ if __name__ == '__main__':
             for user in users}
     with open(FILENAME, 'w', newline='') as f:
         json.dump(data, f)
-
