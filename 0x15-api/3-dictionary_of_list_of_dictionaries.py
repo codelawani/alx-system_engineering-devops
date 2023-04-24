@@ -12,7 +12,7 @@ if __name__ == '__main__':
     url = 'https://jsonplaceholder.typicode.com/'
     users = rq.get(url + 'users').json()
     tasks = rq.get(url + 'todos').json()
-    data = {user.get('id'): [{'username': user.get('name'),
+    data = {user.get('id'): [{'username': user.get('username'),
                               'task': task.get('title'),
                               'completed': task.get('completed'),
                               }

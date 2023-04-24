@@ -14,6 +14,6 @@ if __name__ == '__main__':
     tasks = rq.get(url + 'users/{}/todos'.format(user_id)).json()
     data = {user_id: [{'task': task.get('title'),
                        'completed': task.get('completed'),
-                       'username': user.get('name')} for task in tasks]}
+                       'username': user.get('username')} for task in tasks]}
     with open(FILENAME, 'w', newline='') as f:
         json.dump(data, f)
