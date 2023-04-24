@@ -1,13 +1,8 @@
 #!/usr/bin/python3
-"""This script makes an api request"""
+"""This script returns information about his/her
+todo list progress"""
 import requests as rq
 from sys import argv
-
-
-def req_user(url):
-    """Send a GET request to the specified URL and
-    return the JSON response"""
-    return rq.get(url).json()
 
 
 def tasks_done(todos, mode='count'):
@@ -22,11 +17,10 @@ def tasks_done(todos, mode='count'):
     return done
 
 
-id = argv[1] if argv[1:] else 1
-url = 'https://jsonplaceholder.typicode.com/users/{}'.format(id)
-emp_name = req_user(url).get('name')
-todos = req_user(url + '/todos')
-emp_tasks_total = len(todos)
+user_id = argv[1] if argv[1:] else 1
+url = 'https://jsonplaceholder.typicode.com/'
+user = rq.get(url + 'users/{}'.format(user_id)).json()
+todos = rq.get(url + 'users/{}/todos'.format(user_id)).json()
 print('Employee {} is done with tasks({}/{}):'.
-      format(emp_name, tasks_done(todos), emp_tasks_total))
+      format(user.get('name'), tasks_done(todos), len(todos)))
 tasks_done(todos, 'title')
