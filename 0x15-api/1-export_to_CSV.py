@@ -10,7 +10,7 @@ if __name__ == '__main__':
     user_id = argv[1] if argv[1:] else 1
     FILENAME = user_id + ".csv"
     url = 'https://jsonplaceholder.typicode.com/'
-    user = rq.get(url + 'users/{}'.format(user_id)).json()    
+    user = rq.get(url + 'users/{}'.format(user_id)).json()
     tasks = rq.get(url + 'users/{}/todos'.format(user_id)).json()
     with open(FILENAME, 'w', newline='') as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
