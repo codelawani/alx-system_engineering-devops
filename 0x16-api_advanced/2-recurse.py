@@ -14,8 +14,9 @@ def recurse(subreddit, hot_list=[], after_url=''):
         return None
     else:
         data = response.json()
-        title = data['data']['children'][0]['data']['title']
-        hot_list.append(title)
+        for child in data['data']['children']:
+            title = child['data']['title']
+            hot_list.append(title)
         if data['data'].get('after'):
             after_url = '&after={}'.format(data['data']['after'])
             recurse(subreddit, hot_list, after_url)
