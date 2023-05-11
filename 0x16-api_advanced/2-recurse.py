@@ -5,19 +5,19 @@ and returns the number of subscribers
 import requests
 
 
-def recurse(subreddit, hot_list=[], url):
-    url = 'https://www.reddit.com/r/{}/hot.json?limit=1'.format(
-        subreddit)
+def recurse(subreddit, hot_list=[], after_url=''):
+    url = 'https://www.reddit.com/r/{}/hot.json?limit=1{}'.format(
+        subreddit, after_url)
     response = requests.get(url, allow_redirects=False, headers={
                             "User-Agent": "Nico@alx/1.0"})
     if response.status_code != 200:
-        print(None)
+        return None
     else:
         data = response.json()
-        if 'after' in data['data']:
-            after = data['data']['after']
-            url += '?after={}'.format(after)
-            title = data['data']['children']['data']['title']
-            recurse(subreddit, hot_list.append(title), url)
-
+        title = data['data']['children'][0]['data']['title']
+        print(title)
+        hot_list.append(title)
+        if data['data'].get('after'):
+            after_url = '&after={}'.format(data['data']['after'])
+            recurse(subreddit, hot_list, after_url)
         return hot_list
