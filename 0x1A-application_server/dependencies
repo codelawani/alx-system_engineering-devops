@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+sudo apt-get install -y python3-dev
+sudo apt-get install -y libmysqlclient-dev
+sudo apt-get install -y zlib1g-dev
+pip install SQLAlchemy
+pip install mysqlclient
+pip install flask
+pip install flask-sqlalchemy
+pip install flask-migrate
+pip install flask-cors
